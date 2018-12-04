@@ -1,5 +1,5 @@
-// My questions array of Objects
-
+// My questions and answers array 
+var timer;
 var questions = [{
   question: 'Buddy the Elf has been everywhere except:',
   answers: ['Central Park', 'North Pole', 'South Pole', 'Empire State Building'],
@@ -38,22 +38,37 @@ var questions = [{
 $('#start').on('click', function () {
   game.start();
 });
+
+$(document).on('click', '.answer-button', function () {
+  console.log("YOYOYO")
+  game.currentQuestion++;
+  game.start();
+  console.log (currentQuestion)
+})
+
 // End my game when my Done btn clicked
 $('#done').on('click', function () {
   game.countDown();
 });
 
-
+var currentQuestion = 0;
 var game = {
   correct: 0,
   incorrect: 0,
-  counter: 120,
+  counter: 20,
+  currentQuestion: 0,
+
   // Setting my counter
   countDown: function () {
     game.counter--;
     $('#counter').html(game.counter)
     if (game.counter <= 0) {
-      game.done();
+      // stop interval
+      // show question complete
+      game.currentQuestion++;
+      // set next question
+      game.start();
+      // restart interval
     }
     if ($('#done').on('click', function () {
         game.done();
@@ -64,17 +79,28 @@ var game = {
     }
   },
   // start the game with a timer and add all the questions and answers
+
   start: function () {
+    //check if last question
+    game.counter = 20;
+    $('#subwrapper').empty();
+    if(timer) clearInterval(timer);
     timer = setInterval(game.countDown, 1000)
-    $('#subwrapper').prepend('<h2>Time Remaining: <span id="counter">120</span> Seconds</h2>');
-    $('#start, .game-info').remove();
-    for (var i = 0; i < questions.length; i++) {
-      $('#subwrapper').append('<h3>' + questions[i].question + '</h3>')
-      for (var j = 0; j < questions[i].answers.length; j++) {
-        $('#subwrapper').append("<input class='check-with-label' type='radio' name='question-" + i + "' value='" + questions[i].answers[j] + "'>  <label class='label-for-check'>" + questions[i].answers[j] + "  </label></br>");
-      }
+    $('#subwrapper').prepend('<h2>Time Remaining: <span id="counter">12</span> Seconds</h2>');
+    // $('#start, .game-info').remove();
+    // for (var i = 0; i < questions.length; i++) {
+    //   $('#subwrapper').append('<h3>' + questions[i].question + '</h3>')
+    //   for (var j = 0; j < questions[i].answers.length; j++) {
+    //     $('#subwrapper').append("<input class='check-with-label' type='radio' name='question-" + i + "' value='" + questions[i].answers[j] + "'>  <label class='label-for-check'>" + questions[i].answers[j] + "  </label></br>");
+    //   }
+    // }
+    // $('<button id="done" class="done-btn" type="button" name="button-done">Done</button>').appendTo('#subwrapper');
+    $('#subwrapper').append('<h2>' + questions[this.currentQuestion].question + '</h>');
+    for (var i=0; i<questions[this.currentQuestion].answers.length;i++){
+      $('#subwrapper').append("<input class='check-with-label answer-button' type='radio' name='question-" + this.currentQuestion + "' value='" + questions[this.currentQuestion].answers[i] +
+     "''>" + "<label class='label-for-check'>" + questions[this.currentQuestion].answers[i] + "</label></br>");
     }
-    $('<button id="done" class="done-btn" type="button" name="button-done">Done</button>').appendTo('#subwrapper');
+   
   },
   // checking each input if it is a correct answer or wrong answer and incrementing my game.correct and game.incorrect
   done: function () {
@@ -84,6 +110,7 @@ var game = {
       } else {
         game.incorrect++;
       }
+
     });
     $.each($('input[name="question-1"]:checked'), function () {
       if ($(this).val() === questions[1].correctAnswer) {

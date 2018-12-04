@@ -1,16 +1,25 @@
-.body {
-background-image: url('./assets/images/trivia-back.jpg');
+body {
+  background-image: url('../images/trivia-back.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .trivia-display {
   background-color: rgba(0, 0, 0, 0.8);
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  opacity: .7;
+
 }
+
+.trivia-display h1 {
+  opacity: 1;
+
+}
+
 h1 {
   font-size: 4em;
   color: white;
@@ -19,22 +28,25 @@ h1 {
   text-shadow: 2px 2px 5px black;
   animation: titleColor 7s infinite;
 }
+
 h3.game-info {
   color: #dddddd;
   font-family: fantasy;
   letter-spacing: 1.5px;
   line-height: 40px;
 }
+
 .questions {
   color: white;
   text-align: center;
   font-size: 1.2em;
 }
+
 .start-btn {
   background-color: #dddddd;
   font-size: 2em;
   padding: 5px 5px;
-  color: red;
+  color: #9B1B1B;
   width: 250px;
   height: 70px;
   margin-top: 100px;
@@ -43,11 +55,12 @@ h3.game-info {
   border-radius: 5px;
   border: 2px solid #bababa;
 }
+
 .done-btn {
   background-color: #dddddd;
   font-size: 2em;
   padding: 5px 5px;
-  color: red;
+  color: #9B1B1B;
   width: 250px;
   height: 70px;
   margin-top: 20px;
@@ -60,6 +73,7 @@ h3.game-info {
 button:hover {
   background-color: #bababa;
 }
+
 .all-done {
   margin-bottom: 230px;
   margin-top: 210px;
